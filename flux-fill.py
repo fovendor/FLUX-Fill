@@ -1,10 +1,12 @@
 """
 title: Black Forest Labs: Flux inpainting
 author: fovendor
-version: 0.4.7
-license: MIT
+version: 0.4.8
 icon_url: data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgZmlsbD0ibm9uZSIKICAgdmlld0JveD0iMCAwIDI0IDI0IgogICBzdHJva2Utd2lkdGg9IjIuMyIKICAgc3Ryb2tlPSJjdXJyZW50Q29sb3IiCiAgIGNsYXNzPSJ3LTQgaC00IgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmcxIgogICBzb2RpcG9kaTpkb2NuYW1lPSJ3My5zdmciCiAgIHhtbDpzcGFjZT0icHJlc2VydmUiCiAgIGlua3NjYXBlOnZlcnNpb249IjEuNCAoZTdjM2ZlYjEwMCwgMjAyNC0xMC0wOSkiCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnMKICAgICBpZD0iZGVmczEiIC8+PHNvZGlwb2RpOm5hbWVkdmlldwogICAgIGlkPSJuYW1lZHZpZXcxIgogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzAwMDAwMCIKICAgICBib3JkZXJvcGFjaXR5PSIwLjI1IgogICAgIGlua3NjYXBlOnNob3dwYWdlc2hhZG93PSIyIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwLjAiCiAgICAgaW5rc2NhcGU6cGFnZWNoZWNrZXJib2FyZD0iMCIKICAgICBpbmtzY2FwZTpkZXNrY29sb3I9IiNkMWQxZDEiCiAgICAgaW5rc2NhcGU6em9vbT0iMjIuNjI3NDE3IgogICAgIGlua3NjYXBlOmN4PSI5LjA1OTgwNTYiCiAgICAgaW5rc2NhcGU6Y3k9IjE0LjQwNzMwMSIKICAgICBpbmtzY2FwZTp3aW5kb3ctd2lkdGg9IjE5MjAiCiAgICAgaW5rc2NhcGU6d2luZG93LWhlaWdodD0iMTEzMSIKICAgICBpbmtzY2FwZTp3aW5kb3cteD0iMTQ0MCIKICAgICBpbmtzY2FwZTp3aW5kb3cteT0iMTM5MiIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9InN2ZzEiIC8+PHBhdGgKICAgICBzdHlsZT0iZmlsbDojMDAwMDAwO3N0cm9rZS13aWR0aDowLjA2OTYxNDkzO29wYWNpdHk6MC43NTtzdHJva2UtZGFzaGFycmF5Om5vbmUiCiAgICAgZD0iTSAxNi4wNTg5MDUsMTEuNjM1ODkgQyAxNS42Njg2NjMsMTEuNTI4MjM2IDE1LjIxNzA2LDExLjIxNTc4MSAxNC45NjAzNjYsMTAuODc1ODQxIDE0LjExMDI4LDkuNzUwMDU3OSAxNC42NDA0MDIsOC4xMjI5OTY1IDE1Ljk5NjY2NSw3LjY5NTIwNjUgYyAwLjQzNzkwOSwtMC4xMzgxMjYyIDAuNzcyODU1LC0wLjEzNzg5MDIgMS4yMjIwNzcsOS4yNzNlLTQgMC42NDkzNjUsMC4yMDA1NzAyIDEuMTc2NzUyLDAuNzUyOTAzNyAxLjM3MTc1MywxLjQzNjYzNzIgMC4yMjE5MTksMC43NzgxMTQ3IC0wLjEwMDYwMiwxLjY3OTgyOCAtMC43NzgzMzIsMi4xNzYxMDYgLTAuNDg4MTU3LDAuMzU3NDUyIC0xLjE3NzE5MiwwLjQ4NjAwMiAtMS43NTMyNTgsMC4zMjcwODYgeiBtIDEuMDUxNzUxLC0xLjQ4NzY1MyBjIDAuMTU0MjQ0LC0wLjE1NDIzODIgMC4xNzE2NjcsLTAuMjA0NTYxNCAwLjE3MTY2NywtMC40OTU4MTgxIDAsLTAuMjkzNTk1NCAtMC4wMTY3NiwtMC4zNDA5MDA4IC0wLjE3Nzc2MiwtMC41MDE5MTYyIC0wLjE2MTAwOSwtMC4xNjEwMDUxIC0wLjIwODMxMiwtMC4xNzc3NTUxIC0wLjUwMTkxNSwtMC4xNzc3NTUxIC0wLjI5MzYwMywwIC0wLjM0MDkwNiwwLjAxNjgxMiAtMC41MDE5MTUsMC4xNzc3NTUxIC0wLjE2MDU5NCwwLjE2MDU5NzcgLTAuMTc3NzYyLDAuMjA4NzQ4OSAtMC4xNzc3NjIsMC40OTg1ODUxIDAsMC4yNjY5NTY1IDAuMDIyODIsMC4zNDUzNzA1IDAuMTM1OTM2LDAuNDY3MDgwMiAwLjE4NjYyOCwwLjIwMDgwMiAwLjMwOTc3OCwwLjI0NTMyIDAuNjE2NzU5LDAuMjIyOTMgMC4yMDg1NSwtMC4wMTUyNSAwLjI5OTAzOSwtMC4wNTQ5MyAwLjQzNDk5MiwtMC4xOTA4NjEgeiIKICAgICBpZD0icGF0aDkiIC8+PHBhdGgKICAgICBzdHlsZT0ib3BhY2l0eTowLjc1O2ZpbGw6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4wNjk2MTQ5O3N0cm9rZS1kYXNoYXJyYXk6bm9uZSIKICAgICBkPSJNIDIuNzQ5NjI3NCwxMS42Mzk5NTEgQyAxLjc0NTQ3NzIsMTEuMzk2NzgzIDAuODgzMjk4NDQsMTAuNTA3MTIgMC42NzYwMDUyNSw5LjUwMDIxNzIgMC41OTQyOTE0LDkuMTAzMzAxOSAwLjU5NDU3MzM0LDMuMjM5NjgxMiAwLjY3NjIzNzA4LDIuODQ0NzUxIDAuODk1NzcwMTEsMS43ODQyNDE5IDEuODEyOTI3NSwwLjg4MTA1OTkyIDIuODczMTEzOSwwLjY4MTM0NjAzIDMuMTAxOTU0NiwwLjYzODIzODcgNC4zNTE5NTczLDAuNjI0OTEzODYgNy4wNTk5MTI5LDAuNjM2NzAzNjMgbCAzLjg2MDU1NjEsMC4wMTY4MTI3IDAuMzY3NTg2LDAuMTQ3MzAzMiBjIDAuODQ1MDI5LDAuMzM4NjI5NDcgMS40MTY0NCwwLjk1MTY1MTY3IDEuNjg3MjkyLDEuODEwMTYxOTcgMC4xMTgxNTQsMC4zNzQ1MDUzIDAuMTIwMDg0LDAuNDMxNjkyNiAwLjEyMDA4NCwzLjU2MTQ5NzMgMCwzLjEzMjUzMzUgLTAuMDAxOSwzLjE4NjY5OTYgLTAuMTIwNDY2LDMuNTYzNzUzIC0wLjE0OTQyMywwLjQ3NDkyMzIgLTAuNDU2NDk3LDAuOTU3NjY2MiAtMC44MDc4MSwxLjI2OTkzMzIgLTAuMzE5NTgsMC4yODQwNjEgLTAuOTE2NTE2LDAuNTgwODMyIC0xLjMyMjA3NywwLjY1NzI2MSAtMC40NTY2NjYsMC4wODYwNSAtNy43MzAyODk0LDAuMDY0OTUgLTguMDk1NTQzNiwtMC4wMjM0OSB6IE0gMTEuMDYyMDcsOC44OTU0NDA1IEMgMTEuNDA0ODk4LDguNzE5Nzc0IDExLjUzMDA0Myw4LjIxNjgyMzkgMTEuMzE3NjE3LDcuODY4NDAwMiAxMS4xMTExNiw3LjUyOTc3MzggMTAuMDUzNjQ0LDcuNTMxODM1MiA2Ljg3NDk4MTcsNy41MzE4MzUyIGMgLTEuOTA4MDA4OCwwIC0zLjg3NzAwMjMsMC4wMTk1NyAtMy45Nzg0MTEsMC4wNTc5ODggLTAuNjQxNTg1OSwwLjI0MzA5MTggLTAuNjMwNDIzNywxLjE1NzI3OTMgMC4wMTY1MzEsMS4zNTQ3ODE0IDAuMDg2MTUxLDAuMDI2MzE2IDIuNDExMDAyMiwwLjA0MzQ0MiA0LjAxMDk1ODYsMC4wMzgwMTEgMi4zOTMxNzI5LC0wLjAwODM2IDQuMDEzODg3NywtMC4wMjM2IDQuMTM3OTk5NywtMC4wODcwOTIgeiBNIDExLjAyMDUwOCw0LjczNDg0MzMgQyAxMS40MDc5NDMsNC42MTU2MzI2IDExLjU0MjM1NSw0LjA1OTg0MTkgMTEuMzE2ODQzLDMuNjk0OTU5NCAxMS4wOTc1MjIsMy4zNDAwOTA1IDEwLjAxMDIxMSwzLjMzOTE5NzcgNi43NTg0OTM4LDMuMzU2NjIwMyAzLjU2MjM4LDMuMzczNzU2NiAyLjc0MjQxNSwzLjM2MDU4ODUgMi41MTc3MDE0LDMuNzAzNTA5OSBjIC0wLjEyNzA5ODcsMC4xOTM5Nzc4IC0wLjExODU4OSwwLjU4NzMwMTggMC4wMTY2OTgsMC43NzE4NjU1IDAuMjUyMDUyNSwwLjM0Mzg1NzEgMS4xMzQ1NzQzLDAuMzM3NTc5IDQuMzIzNDQ3MSwwLjMzNzY3NDEgMi4zOTg1NzU5LDUuMzJlLTUgNC4wMDE5NjQ1LC0wLjAyODc2MSA0LjE2MjY1NzUsLTAuMDc4MjA1IHoiCiAgICAgaWQ9InBhdGg4IgogICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY3NjY2Njc3NzY3NjY2NjY3NjY2NjY3NzY2NjY3NzIiAvPjxwYXRoCiAgICAgc3R5bGU9ImZpbGw6IzAwMDAwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC42MDk7c3Ryb2tlLWRhc2hhcnJheTpub25lO3N0cm9rZS1vcGFjaXR5OjE7b3BhY2l0eTowLjc1IgogICAgIGQ9Ik0gNi45NTI3ODg5LDIyLjgwNDc0OSBDIDYuNDkzMjU4NCwyMi43Mzc4MTEgNS44NjM1NTIsMjIuNTE3NDQgNS40NTMzNzg3LDIyLjI3OTk4NCA1LjAyMDA5MTYsMjIuMDI5MTYyIDQuMjQxNzY2MywyMS4yNTkzMjggMy45OTIwNDM1LDIwLjgzNDYxNCAzLjc0MTE5NjEsMjAuNDA3OTc5IDMuNTE4NzI4NiwxOS43NjEwMjUgMy40NDc5OTYzLDE5LjI1MjQ3NyAzLjQxMjY1ODMsMTguOTk4NDE3IDMuMzg5NzU3NSwxNy43MTI3NTkgMy4zODk3NTc1LDE1Ljk4MzA2NiB2IC0yLjg1MDcxMiBoIDAuNjc5Njc0NiAwLjY3OTY3NTQgdiAyLjk1MTk2NSBjIDAsMy4xNDExMTIgMC4wMDYzNywzLjIzIDAuMjczNTIzOCwzLjgzNDAwNCBsIDAuMTA2NDc0NSwwLjI0MDcxNCAwLjQ3NjA4MzEsLTAuNDQ5OTAyIGMgMC4yNjE4NDQ3LC0wLjI0NzQzOSAxLjc4NTEzNjIsLTEuNzM4MTMgMy4zODUwOTI2LC0zLjMxMjY2NCAxLjgwMjE2MTUsLTEuNzAwNzEgMy4xOTM5MzM1LC0zLjE4MjU0OSA0LjEzMjQyNTUsLTMuMTgyNTQ5IDAuOTM0MjY2LDAgMi4wMTk3MzQsMS4wMjc0NDkgMy45MzE0NDEsMi45ODc0MjggMC43OTY5OSwtMC42MTAxNTQgMS40NjA4NjEsLTEuMjQ0ODI1IDIuMjE1NDQxLC0xLjg2OTMzMiBsIDMuMDg4OTExLDIuNzkzMzEyIC0xLjEzNTQxNCwyLjc5MjMwMyBjIC0wLjI2MTU1MiwwLjY0MzIzIDAuMjczMjE5LC0wLjQ0NDIzMSAwLjI3MzIxOSwtNi43ODUyNzkgMCwtNi40MzY2NzE1IDAuMDExNTUsLTYuMTgxNjkxOCAtMC4zMTAxMzksLTYuODUxMTIyMSBDIDIwLjk5NzM1NCw1Ljg4ODMxMiAyMC4zNjY3NTUsNS4yNTc3MDk3IDE5Ljk3MzgzNSw1LjA2ODkgMTkuMzU2OTc1LDQuNzcyNDc3NiAxOS4yMTU3NjMsNC43NTg3NTggMTYuNzgxNTMxLDQuNzU4NzU4IEggMTQuNTM2NDMzIFYgNC4wNzkwODQ2IDMuMzk5NDA4IGggMi4xNDM4MzcgYyAxLjIyNzE5MiwwIDIuMzIyODczLDAuMDI0OTA2IDIuNTYyNTYsMC4wNTgyMzkgMC41MDg1NDcsMC4wNzA3MjggMS4xNTU0OTUsMC4yOTMxOTk4IDEuNTgyMTMsMC41NDQwNDczIDAuNDA3MjI2LDAuMjM5NDM4OCAxLjE4ODk3NCwxLjAyMTE4NjIgMS40Mjg0MTEsMS40Mjg0MTI2IDAuMjUwODUxLDAuNDI2NjM1MSAwLjQ3MzMxNSwxLjA3MzU4NDQgMC41NDQwNDcsMS41ODIxMjk3IDAuMDc5MjYsMC41Njk4NTIxIDAuMDgwMzYsMTEuNjYyNTEwNCAwLjAwMTEsMTIuMjMxNTUyNCAtMC4xMjc3MDYsMC45MTgxNjEgLTAuNTI0NTA2LDEuNzEwODUzIC0xLjE4OTA3NCwyLjM3NTQxNCAtMC42NjQ1NjUsMC42NjQ1NzEgLTEuNDU3MjU3LDEuMDYxMzcyIC0yLjM3NTQyNCwxLjE4OTA3NSAtMC41MDMwMzUsMC4wNjk5NyAtMTEuNzk5MDM1MSwwLjA2NjczIC0xMi4yODEzNDMzLC0wLjAwMzEgeiBNIDE5LjM0NzMwMSwyMS40MjI0MzIgYyAwLjE3NjM2NywtMC4wNDU5NSAwLjQzMjMwOCwtMC4xMzM2OTggMC41Njg3NTcsLTAuMTk1MDI3IGwgMC4yNDgwODUsLTAuMTExNTE3IC0xLjI2MTkyMywtMS4yMzIyNzcgYyAtMC42OTQwNTcsLTAuNjc3NzYgLTIuMjAwMjI3LC0yLjE1Mjk4NSAtMy4zNDcwNDMsLTMuMjc4Mjc2IC0xLjU4OTk0NSwtMS41NjAwOTMgLTIuMTI2MzY3LC0yLjA1NTAzNCAtMi4yNTg3OTcsLTIuMDg0MTE2IC0wLjM5NTQxNSwtMC4wODY4OCAtMC40MDU3MjMsLTAuMDc4NTMgLTIuNzk5NDMxLDIuMjc0OTAzIC0xLjI1MDc3NjIsMS4yMjk2OTggLTIuNzU1OTg1MiwyLjcwNDYxOSAtMy4zNDQ5MDk4LDMuMjc3NTk4IGwgLTEuMDcwNzY3LDEuMDQxNzgxIDAuMjUwNjA2MiwwLjExMjgyMyBjIDAuNjE4NTg0OSwwLjI3ODQ3NCAwLjQxNDkzODMsMC4yNzAyMjUgNi43NjU4MTM2LDAuMjc0MDU3IDUuMTY0NTg3LDAuMDAzMSA1Ljk3MDI3NiwtMC4wMDczIDYuMjQ5NjA5LC0wLjA3OTk5IHoiCiAgICAgaWQ9InBhdGgyIgogICAgIHNvZGlwb2RpOm5vZGV0eXBlcz0iY2Njc3NjY2NzY2NjY3NjY2Nzc3Nzc2NjY3Njc3NzY2NzY2NjY2NjY2NjY2NzY2NjIiAvPjwvc3ZnPgo=
-required_open_webui_version: 0.5.6
+github: https://github.com/fovendor/FLUX-Fill
+license: MIT
+requirements: asyncio, uuid, requests, pydantic, pathlib, pydantic
+required_open_webui_version: 0.5.4
 """
 
 import asyncio
@@ -28,39 +30,55 @@ IMAGE_CACHE_DIR = Path(CACHE_DIR).joinpath("image/generations/")
 IMAGE_CACHE_DIR.mkdir(parents=True, exist_ok=True)
 
 
+"""
+Note!
+- If you encounter a bug with the plugin, feel free to open an issue on GitHub: https://github.com/fovendor/FLUX-Fill
+
+To easily create and modify images created with FLUX, the following approach is recommended:
+- Install FLUX Gen and use it to generate images.
+- Install FLUX Fill and use it to modify the generated images.
+
+Hacks. You can put ANY image in the catalog with the generated images and transfer it to FLUX Fill. To do this: 
+- Go into edit mode of the chat message you received from FLUX Gen.
+- Paste the name <new image>.png instead of ![BFL Image](/cache/image/generations/<generated image>.png).
+- Save your changes and call the FLUX Fill function.
+- Enjoy!
+"""
+
+
 class Action:
     class Valves(BaseModel):
         FLUX_API_URL: str = Field(
             default="https://api.bfl.ml/v1",
-            description="Базовый URL API FLUX (без / на конце).",
+            description="Basic URL of the FLUX API (without / at the end)",
         )
         FLUX_API_KEY: str = Field(
             default="YOUR-FLUX-API-KEY",
-            description="API-ключ для аутентификации (дальше передаём в x-key).",
+            description="API key for authentication",
         )
         STEPS: int = Field(
             default=50,
-            description="Кол-во итераций генерации (steps)",
+            description="Number of generation iterations (steps)",
         )
         GUIDANCE: int = Field(
             default=60,
-            description="Интенсивность guidance",
+            description="Guidance scale (striving to achieve the goals of the request)",
         )
         SAFETY_TOLERANCE: int = Field(
             default=6,
-            description="Уровень толерантности к Safety-модерации (0..6)",
+            description="Moderation: 0..6 (the limits of what is allowed, where 6 is the limit)",
         )
         OUTPUT_FORMAT: str = Field(
             default="jpeg",
-            description="Формат финального изображения (jpeg/png)",
+            description="jpeg/png",
         )
         POLL_INTERVAL: int = Field(
             default=2,
-            description="Интервал (сек) между запросами на get_result.",
+            description="Interval in sec between requests for get_result",
         )
         MAX_POLL_ATTEMPTS: int = Field(
             default=60,
-            description="Максимальное кол-во попыток поллинга (status=Ready).",
+            description="Maximum number of attempts to pick up a picture",
         )
 
     def __init__(self):
@@ -69,9 +87,6 @@ class Action:
     def status_object(
         self, description: str, status: str = "in_progress", done: bool = False
     ) -> Dict:
-        """
-        Унифицированная структура для статусов в Open WebUI.
-        """
         return {
             "type": "status",
             "data": {
@@ -83,7 +98,7 @@ class Action:
 
     def find_generated_image_path(self, messages: List[Dict]) -> Optional[str]:
         """
-        Ищем последнее сгенерированное изображение в формате ![BFL Image](...)
+        Looking for the last generated image in the format: ![BFL Image](...)
         """
         for msg in reversed(messages):
             if msg.get("role") == "assistant" and "![BFL Image](" in msg.get(
@@ -96,8 +111,8 @@ class Action:
 
     def find_existing_artifact_message(self, messages: List[Dict]) -> Optional[Dict]:
         """
-        Ищем последнее сообщение с HTML/JSON-кодом (artifact),
-        чтобы при необходимости обновить его через edit_message.
+        We are looking for the last message with HTML/JSON code (artifact),
+        to update it via edit_message if necessary.
         """
         for msg in reversed(messages):
             if msg.get("role") == "assistant" and (
@@ -109,19 +124,16 @@ class Action:
 
     def save_url_image(self, url: str) -> str:
         """
-        Скачиваем изображение по ссылке и сохраняем локально
-        в папку /cache/image/generations.
-        Возвращаем путь, по которому это изображение потом доступно.
+        Download the image from the link and save it locally
+        in the /cache/image/generations folder.
+        Return the path where the image is then available.
         """
         image_id = str(uuid.uuid4())
         try:
             response = requests.get(url)
             response.raise_for_status()
-
-            # Определим тип контента и расширение
             mime_type = response.headers.get("content-type", "")
             ext = mimetypes.guess_extension(mime_type) or ".jpg"
-
             file_path = IMAGE_CACHE_DIR / f"{image_id}{ext}"
             with open(file_path, "wb") as f:
                 for chunk in response.iter_content(chunk_size=8192):
@@ -129,47 +141,40 @@ class Action:
 
             return f"/cache/image/generations/{file_path.name}"
         except Exception as e:
-            raise RuntimeError(f"Ошибка при скачивании изображения: {e}")
+            raise RuntimeError(f"Error downloading an image: {e}")
 
     async def action(
         self,
         body: dict,
+        __id__: str = None,  # action ID
         __user__: dict = None,
         __event_emitter__: Callable[[dict], Any] = None,
         __event_call__: Callable[[dict], Any] = None,
     ) -> Optional[dict]:
         """
-        Основной метод плагина.
-        1) Если есть image/mask/prompt => делаем inpainting через FLUX
-           - Отправляем запрос на flux-pro-1.0-fill
-           - Ждём статус Ready
-           - Скачиваем result.sample и выводим в чате
-        2) Иначе -> рендерим/обновляем HTML для выбора области и ввода prompt.
+        Basic plugin method.
+        1) If there is an image/mask/prompt => do inpainting via FLUX
+           - Send request to flux-pro-1.0-fill
+           - Wait for Ready status
+           - Download result.sample and display in chat.
+        2) Otherwise -> render/update HTML to select area and enter prompt.
         """
 
-        # ---------------------------------------------------------------------
-        # 1. Подстановка заглушек для обязательных полей (чтобы Open WebUI не дал 400)
-        # ---------------------------------------------------------------------
         body.setdefault("model", "flux_test_7.flux-1-1-pro")
         body.setdefault("chat_id", "dummy_chat_id")
         body.setdefault("session_id", "dummy_session_id")
         body.setdefault("id", "dummy_message_id")
 
         if DEBUG:
-            print(f"\n[DEBUG] Поступил запрос в flux_inpainting action. Body = {body}")
+            print(f"\n[DEBUG] A request was received in {__id__} action. Body = {body}")
 
-        # Сообщения чата
         messages = body.get("messages", [])
 
-        # Выводим стартовый статус
         if __event_emitter__:
             await __event_emitter__(
                 self.status_object("Обработка запроса...", "in_progress", False)
             )
 
-        # ---------------------------------------------------------------------
-        # 2. Если есть image/mask/prompt => inpainting
-        # ---------------------------------------------------------------------
         if all(k in body for k in ("image", "mask", "prompt")):
             image_b64 = body["image"]
             mask_b64 = body["mask"]
@@ -182,7 +187,7 @@ class Action:
 
             if DEBUG:
                 print(
-                    "[DEBUG] Inpainting-запрос:",
+                    "[DEBUG] Inpainting-request:",
                     {
                         "prompt": prompt_str,
                         "steps": steps_val,
@@ -194,13 +199,13 @@ class Action:
 
             if __event_emitter__:
                 await __event_emitter__(
-                    self.status_object("Отправляем задачу в FLUX...", "in_progress")
+                    self.status_object("Sending the task to FLUX...", "in_progress")
                 )
 
-            # Формируем payload для inpainting
+            # Form payload for inpainting
             payload = {
-                "image": image_b64,  # base64 без префикса data:image...
-                "mask": mask_b64,  # base64 без префикса
+                "image": image_b64,
+                "mask": mask_b64,
                 "prompt": prompt_str,
                 "steps": steps_val,
                 "guidance": guidance_val,
@@ -208,7 +213,7 @@ class Action:
                 "safety_tolerance": safety_val,
             }
 
-            # POST-запрос на создание задачи inpainting
+            # POST request to create an inpainting task
             try:
                 flux_response = requests.post(
                     f"{self.valves.FLUX_API_URL}/flux-pro-1.0-fill",
@@ -221,7 +226,7 @@ class Action:
                 )
                 flux_response.raise_for_status()
             except requests.exceptions.RequestException as e:
-                msg = f"Ошибка при запросе к FLUX: {e}"
+                msg = f"Error when querying FLUX: {e}"
                 if DEBUG:
                     print(msg)
                 if __event_emitter__:
@@ -231,7 +236,7 @@ class Action:
             flux_json = flux_response.json()
             task_id = flux_json.get("id")
             if not task_id:
-                msg = f"Flux не вернул id задачи: {flux_json}"
+                msg = f"Flux did not return the task id: {flux_json}"
                 if DEBUG:
                     print(msg)
                 if __event_emitter__:
@@ -239,7 +244,7 @@ class Action:
                 return {"status": "error", "message": msg}
 
             # -----------------------------------------------------------------
-            # 3. Поллинг результата
+            # 3. Polling the result
             # -----------------------------------------------------------------
             max_attempts = self.valves.MAX_POLL_ATTEMPTS
             poll_interval = self.valves.POLL_INTERVAL
@@ -250,7 +255,7 @@ class Action:
 
                 if DEBUG:
                     print(
-                        f"[DEBUG] Поллинг FLUX (попытка {attempt+1}/{max_attempts}) task_id={task_id}"
+                        f"[DEBUG] Polling FLUX (attempt {attempt+1}/{max_attempts}) task_id={task_id}"
                     )
 
                 try:
@@ -265,7 +270,7 @@ class Action:
                     )
                     check_resp.raise_for_status()
                 except requests.exceptions.RequestException as e:
-                    msg = f"Ошибка при получении результата FLUX: {e}"
+                    msg = f"Error when receiving the result FLUX: {e}"
                     if DEBUG:
                         print(msg)
                     if __event_emitter__:
@@ -278,7 +283,6 @@ class Action:
                 if DEBUG:
                     print(f"[DEBUG] Flux status={status_}")
 
-                # Обновим статус в чат (по желанию)
                 if __event_emitter__ and status_ not in ["Pending", "Processing"]:
                     await __event_emitter__(
                         self.status_object(
@@ -286,10 +290,10 @@ class Action:
                         )
                     )
 
-                # Проверяем, готово ли
+                # Checking to see if it's ready
                 if status_ == "Ready":
                     result_obj = rjson.get("result", {})
-                    # Теперь ищем "sample" — ссылка на результат
+                    # Now look for “sample” - a link to the result
                     image_url = result_obj.get("sample")
                     break
 
@@ -299,16 +303,16 @@ class Action:
                     "Request Moderated",
                     "Task not found",
                 ]:
-                    msg = f"Flux вернул статус: {status_}"
+                    msg = f"Flux has returned the status: {status_}"
                     if DEBUG:
                         print(msg)
                     if __event_emitter__:
                         await __event_emitter__(self.status_object(msg, "error", True))
                     return {"status": "error", "message": msg}
-                # Иначе (Pending / Processing) – продолжаем поллинг
+                # Otherwise (Pending / Processing) - continue polling
 
             if not image_url:
-                msg = "Flux не вернул результат в отведённое время."
+                msg = "Flux did not return a result in the time allotted"
                 if DEBUG:
                     print(msg)
                 if __event_emitter__:
@@ -316,30 +320,28 @@ class Action:
                 return {"status": "error", "message": msg}
 
             # -----------------------------------------------------------------
-            # 4. Скачиваем финальное изображение по ссылке
+            # 4. Download the final image from the link
             # -----------------------------------------------------------------
             if __event_emitter__:
                 await __event_emitter__(
-                    self.status_object(
-                        "Загружаем финальное изображение...", "in_progress"
-                    )
+                    self.status_object("Uploading the final image...", "in_progress")
                 )
 
             try:
                 local_image_path = self.save_url_image(image_url)
             except Exception as e:
-                msg = f"Ошибка скачивания изображения: {e}"
+                msg = f"Image download error: {e}"
                 if DEBUG:
                     print(msg)
                 if __event_emitter__:
                     await __event_emitter__(self.status_object(msg, "error", True))
                 return {"status": "error", "message": msg}
 
-            # Формируем сообщение с результатом
-            content_msg = f"Результат inpainting:\n\n![BFL Image]({local_image_path})"
+            # Generate a message with the result
+            content_msg = f"Result inpainting:\n\n![BFL Image]({local_image_path})"
 
             # -----------------------------------------------------------------
-            # 5. Выводим готовое изображение в чат
+            # 5. Display the finished image in the chat room
             # -----------------------------------------------------------------
             if __event_emitter__:
                 await __event_emitter__(
@@ -350,29 +352,27 @@ class Action:
                 )
                 await __event_emitter__(
                     self.status_object(
-                        "Готово! Результат inpainting получен.", "complete", True
+                        "Done! The result of inpainting is obtained.", "complete", True
                     )
                 )
 
-            return {"status": "ok", "message": "Inpainting завершён"}
+            return {"status": "ok", "message": "Inpainting is complete"}
 
         # ---------------------------------------------------------------------
-        # 3. Иначе, если нет image/mask/prompt => отрисовываем/обновляем HTML-форму
+        # 3. Otherwise, if there is no image/mask/prompt => render/update the HTML form
         # ---------------------------------------------------------------------
         if DEBUG:
-            print("[DEBUG] Нет image/mask/prompt => рендерим HTML-инструмент")
+            print("[DEBUG] No image/mask/prompt => render HTML tool")
 
         if __event_emitter__:
             await __event_emitter__(
-                self.status_object(
-                    "Подготавливаем/обновляем HTML...", "in_progress", False
-                )
+                self.status_object("Prepare/update HTML...", "in_progress", False)
             )
 
-        # Пытаемся найти последнее сгенерированное изображение
+        # Trying to find the last image generated
         image_path = self.find_generated_image_path(messages)
         if not image_path:
-            error_msg = "В сообщениях не найдено последнее сгенерированное изображение!"
+            error_msg = "The last generated image was not found in the posts!"
             if DEBUG:
                 print("[DEBUG]", error_msg)
             if __event_emitter__:
@@ -382,20 +382,20 @@ class Action:
         filename = os.path.basename(image_path)
         full_file_path = IMAGE_CACHE_DIR / filename
         if not full_file_path.exists():
-            error_msg = f"Файл не найден: {full_file_path}"
+            error_msg = f"File not found: {full_file_path}"
             if DEBUG:
                 print("[DEBUG]", error_msg)
             if __event_emitter__:
                 await __event_emitter__(self.status_object(error_msg, "error", True))
             return {"status": "error", "message": error_msg}
 
-        # Значения по умолчанию
+        # Default values
         steps_val = self.valves.STEPS
         guidance_val = self.valves.GUIDANCE
         safety_val = self.valves.SAFETY_TOLERANCE
         output_fmt = self.valves.OUTPUT_FORMAT
 
-        # Генерируем HTML для маски
+        # Generate an HTML page to draw the mask and send a request for inpainting
         artifact_html = f"""
 ```html
 <head>
@@ -681,7 +681,7 @@ class Action:
             console.log("[JS] Отправляем payload в плагин:", payload);
 
             try {{
-                const resp = await fetch("/api/chat/actions/flux_inpainting", {{
+                const resp = await fetch("/api/chat/actions/{__id__}", {{
                     method: "POST",
                     headers: {{
                         "Content-Type": "application/json"
@@ -737,11 +737,11 @@ class Action:
 
         existing_artifact_msg = self.find_existing_artifact_message(messages)
 
-        # С небольшой задержкой, чтобы успеть отрендерить
+        # With a slight delay to allow for rendering
         await asyncio.sleep(1)
 
         if not existing_artifact_msg:
-            # Если раньше не было HTML-блока для маски, отправляем новое сообщение
+            # If there was no HTML block for the mask before, send a new message
             if __event_emitter__:
                 await __event_emitter__(
                     {
@@ -751,11 +751,11 @@ class Action:
                 )
                 await __event_emitter__(
                     self.status_object(
-                        "HTML-артефакт создан, откройте в чате!", "complete", True
+                        "HTML artifact created, open it in chat", "complete", True
                     )
                 )
         else:
-            # Обновляем существующее сообщение
+            # Update an existing message so you don't have to draw the web page twice, three times, etc.
             msg_id = existing_artifact_msg.get("id")
             if msg_id:
                 if __event_emitter__:
@@ -770,14 +770,14 @@ class Action:
                         }
                     )
                     await __event_emitter__(
-                        self.status_object("HTML-артефакт обновлён", "complete", True)
+                        self.status_object("HTML artifact updated", "complete", True)
                     )
             else:
-                # Нет ID => просто выводим статус
+                # If ID => display the status
                 if __event_emitter__:
                     await __event_emitter__(
                         self.status_object(
-                            "Арт уже существует, но нет ID для обновления",
+                            "The artifact already exists, but there is no ID to update. Open an existing artifact in the chat context menu",
                             "complete",
                             True,
                         )
