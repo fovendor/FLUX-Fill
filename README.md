@@ -7,6 +7,8 @@ This Python plugin integrates the **Black Forest Labs FLUX** inpainting API into
 ## Features
 
 - **Inpainting Support**: Allows users to select regions of an image and apply inpainting to modify or enhance specific areas based on textual prompts.
+- **Change any picture**: The Load button in the inpainting interface allows you to load ANY image and change it!
+- **Brush settings**: Adjust the size and softness of the brush for more precise inpainting.
 - **Interactive HTML Interface**: Provides a user-friendly HTML interface within the chat for selecting mask areas and entering prompts, enhancing the inpainting workflow.
 - **Customizable Parameters**: Enables configuration of inpainting steps, guidance scale, safety tolerance, output format, polling intervals, and maximum polling attempts.
 - **Result Polling**: Automatically polls the FLUX API until the inpainting task is completed, ensuring users receive results promptly.
@@ -73,6 +75,7 @@ The following parameters are customizable through the `Valves` class:
   
   - The plugin provides an interactive HTML interface for selecting mask areas and entering tooltips. This is implemented through an [artifact within Open WebUI](https://docs.openwebui.com/features/code-execution/artifacts/). If you close the artifact, you can find it in the chat context menu..
   - Use valves and several attempts at inpeinting to get good results.
+  - Upload your own images to edit using the Load button in the Inpainting web interface.
 
 ### Saving Images
 
@@ -89,14 +92,14 @@ The FLUX API returns the URL of the generated image. The plugin downloads this i
   
 ## Backlog
 
-1. **Enhance HTML Interface**:
-  - Enhance the user interface to randomly draw one or more masks on a single image to make the inlay process more intuitive and efficient.
-2. **Performance Optimization**:
-  - Optimize the polling mechanism to reduce latency and improve the responsiveness of the inpainting process.
-3. **Improved interaction with chat**:
-  - Improve interaction with Open WebUI chat for intuitive interaction
-4. **Other models**:
-  - Addition of Canny and Depth models for more flexibility in the process of inlaying changes, removing backgrounds, creating bokeh, etc.
+1. **Removing an artifact call**:
+  - After pressing the Send button and receiving the task ID for changing the image, the html code must be removed from the chat!
+2. **Improved interaction with chat**:
+  - Improve interaction with Open WebUI chat for intuitive interaction. 
+3. **Automatic translation and optimization of prompts**:
+  - So that, just like in the Gen plugin, users can enter prompts in their native language without the help of broken English and translators.
+4. **New picture in a separate message**:
+  - To prevent generated images from being part of one long assistant message, each generation should be placed in a separate "children" for the chat or in a new assistant message.
 
 ## License
 
