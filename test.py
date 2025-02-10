@@ -77,7 +77,7 @@ class Action:
         Ищем последнюю сгенерированную картинку формата: ![BFL Image](...)
         """
         for msg in reversed(messages):
-            if msg.get("role") == "assistant" and "![BFL Image](" in msg.get(
+            if msg.get("role") == "system" and "![BFL Image](" in msg.get(
                 "content", ""
             ):
                 match = re.search(r"!\[BFL Image\]\(([^)]+)\)", msg["content"])
@@ -93,7 +93,7 @@ class Action:
         """
         for msg in reversed(messages):
             content = msg.get("content", "")
-            if msg.get("role") == "assistant" and (
+            if msg.get("role") == "system" and (
                 "Inpainting Helper" in content
                 or "```html" in content
                 or "```json" in content
@@ -327,7 +327,7 @@ class Action:
                     await __event_emitter__(
                         {
                             "type": "message",
-                            "data": {"role": "assistant", "content": content_msg},
+                            "data": {"role": "system", "content": content_msg},
                         }
                     )
                     await __event_emitter__(
@@ -429,7 +429,7 @@ class Action:
                     await __event_emitter__(
                         {
                             "type": "message",
-                            "data": {"role": "assistant", "content": artifact_html},
+                            "data": {"role": "system", "content": artifact_html},
                         }
                     )
 
