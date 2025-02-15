@@ -92,14 +92,12 @@ The FLUX API returns the URL of the generated image. The plugin downloads this i
   
 ## Backlog
 
-1. **Removing an artifact call**:
-  - After pressing the Send button and receiving the task ID for changing the image, the html code must be removed from the chat!
-2. **Improved interaction with chat**:
-  - Improve interaction with Open WebUI chat for intuitive interaction. 
-3. **Automatic translation and optimization of prompts**:
-  - So that, just like in the Gen plugin, users can enter prompts in their native language without the help of broken English and translators.
-4. **New picture in a separate message**:
-  - To prevent generated images from being part of one long assistant message, each generation should be placed in a separate "children" for the chat or in a new assistant message.
+1. After pressing the Send button and receiving the task ID for changing the image, the html code must be removed from the chat!
+2. Добавьте поле выбора к артефакту со списком моделей закрашивания: Fill, Canny или Depth. При выборе различных моделей должны стать доступны определенные опции!
+3. So that, just like in the Gen plugin, users can enter prompts in their native language without the help of broken English and translators.
+4. To prevent generated images from being part of one long assistant message, each generation should be placed in a separate "children" for the chat or in a new assistant message.
+5. Move the STEPS, GUIDANCE and OUTPUT_FORMAT settings to an artifact so that the user can easily change the settings for each image.
+6. Add the ability to crop and expand an image in an artifact after it has been picked up from a chat or loaded using the Load button.
 
 ## License
 
