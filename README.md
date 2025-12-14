@@ -1,5 +1,8 @@
 # Flux 1.1 Pro functionality for modifying images in Open WebUI
 
+
+> The plugin's development has been temporarily suspended, its functionality is not guaranteed.
+
 ## Overview
 
 This Python plugin integrates the **Black Forest Labs FLUX** inpainting API into the Open WebUI platform. It enables users to perform advanced image inpainting by selecting specific areas of an image, providing textual prompts, and generating high-quality edited images seamlessly within the Open WebUI environment.
